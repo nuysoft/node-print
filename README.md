@@ -1,0 +1,4 @@
+print
+=====
+
+printf in JavaScript
