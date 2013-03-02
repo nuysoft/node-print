@@ -1,0 +1,25 @@
+{
+  "name": "print",
+  "title": "Print",
+  "description": "Print Tool",
+  "version": "0.1",
+  "homepage": "https://github.com/nuysoft/print",
+  "keywords": ["print", "printf", "color", "date", "table"],
+  "author": "nuysoft@gmail.com",
+  "engines": {
+    "node": ""
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/nuysoft/print.git"
+  },
+  "main": "./print.js",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/nuysoft/print/blob/master/README.md"
+    }
+  ]
+}
