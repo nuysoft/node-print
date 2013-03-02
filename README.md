@@ -5,10 +5,6 @@
 3. Prettify JSONArray to table
 4. Simple date format
 
-## Installation
-    
-    npm install print
-
 ## printf in JavaScript
 
     // syntax
