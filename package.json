@@ -1,25 +1,23 @@
 {
-  "name": "node-print",
-  "title": "Print",
-  "description": "Print Tool",
-  "version": "0.1",
-  "homepage": "https://github.com/nuysoft/node-print",
-  "keywords": ["print", "printf", "color", "date", "table"],
-  "author": "nuysoft@gmail.com",
-  "engines": {
-    "node": ""
-  },
-  "dependencies": {},
-  "devDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/nuysoft/node-print.git"
-  },
-  "main": "./print.js",
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/nuysoft/node-print/blob/master/README.md"
-    }
-  ]
+    "name": "node-print",
+    "title": "Print",
+    "description": "Print Tool",
+    "version": "0.0.1",
+    "homepage": "https://github.com/nuysoft/node-print",
+    "keywords": ["print", "printf", "color", "date", "table"],
+    "author": "nuysoft@gmail.com",
+    "engines": {
+        "node": ""
+    },
+    "dependencies": {},
+    "devDependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/nuysoft/node-print.git"
+    },
+    "main": "./print.js",
+    "licenses": [{
+        "type": "MIT",
+        "url": "https://github.com/nuysoft/node-print/blob/master/README.md"
+    }]
 }
