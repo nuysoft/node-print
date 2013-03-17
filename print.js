@@ -4,6 +4,9 @@
     2. Prettify log's color
     3. Prettify JSONArray to table
     4. Simple date format
+    
+    External links
+    http://en.wikipedia.org/wiki/Printf_format_string
 */
 
 /*
