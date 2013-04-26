@@ -12,19 +12,19 @@
 /*
     工具函数
 */
-exports.isString = function(obj){
-    return Object.prototype.toString.call(obj)  === '[object String]';
+exports.isString = function(obj) {
+    return Object.prototype.toString.call(obj) === '[object String]';
 }
-exports.isDate = function(obj){
-    return Object.prototype.toString.call(obj)  === '[object Date]';
+exports.isDate = function(obj) {
+    return Object.prototype.toString.call(obj) === '[object Date]';
 }
 
 /*
     重复打印
 */
-exports.repln = function(str, n){
+exports.repln = function(str, n) {
     var re = '';
-    for( var i = 0; i < n; i++ ){
+    for (var i = 0; i < n; i++) {
         re += str;
     }
     console.log(re);
@@ -36,16 +36,16 @@ exports.repln = function(str, n){
     exports.pln(obj[, obj])
     exports.pln(date[, date], format)
 */
-exports.pln = function(args){
+exports.pln = function(args) {
     args = [].slice.call(arguments, 0);
 
     // exports.pln(date [, date], format);
-    if( exports.isDate( args[0] ) && exports.isString( args[args.length - 1] ) ) {
-        for( var i = 0; i < args.length - 1; i++ ){
-            args[i] = exports.format( args[i], args[args.length - 1] );
+    if (exports.isDate(args[0]) && exports.isString(args[args.length - 1])) {
+        for (var i = 0; i < args.length - 1; i++) {
+            args[i] = exports.format(args[i], args[args.length - 1]);
         }
         console.log.apply({}, args.slice(0, args.length - 1));
-    // exports.pln(obj [, obj])
+        // exports.pln(obj [, obj])
     } else {
         console.log.apply({}, arguments);
     }
@@ -60,11 +60,12 @@ exports.pln = function(args){
             %-m.nd  - Number (both integer and float)
             %-mj    - JSON
 */
-exports.pf = exports.printf = function pf(format, args){
-    var rformat = /%([-+]?)(\d+)?(?:\.?(\d+)?)(s|d)/ig, out;
+exports.pf = exports.printf = function pf(format, args) {
+    var rformat = /%([-+]?)(\d+)?(?:\.?(\d+)?)(s|d)/ig,
+        out;
 
     // 参数 format 不是字符串，或者不含有格式标记，则不做格式化，直接输出
-    if(typeof format !== 'string' || !format.match(rformat)) {
+    if (typeof format !== 'string' || !format.match(rformat)) {
         console.log.apply({}, arguments);
         return exports;
     }
@@ -72,15 +73,17 @@ exports.pf = exports.printf = function pf(format, args){
     // 格式化
     args = [].slice.call(arguments, 1);
     var index = 0;
-    out = format.replace(rformat, function(match, dir, m, n, flag){
+    out = format.replace(rformat, function(match, dir, m, n, flag) {
         // console.log(match, dir, m, n, flag);
-        var arg = args[index++] + '', prefix = '', suffix = '';
-        switch(flag){
+        var arg = args[index++] + '',
+            prefix = '',
+            suffix = '';
+        switch (flag) {
             case 's':
                 break;
             case 'd':
                 var indexOf = arg.indexOf('.');
-                if(n && ~indexOf) arg = arg.slice(0, indexOf + 1 + parseInt(n));
+                if (n && ~indexOf) arg = arg.slice(0, indexOf + 1 + parseInt(n));
                 break;
             case 'j':
                 arg = JSON.stringify(arg);
@@ -88,7 +91,7 @@ exports.pf = exports.printf = function pf(format, args){
         }
         // dir m
         var fix = parseInt(m) - arg.length;
-        for( var i = 0; i < fix; i++ ) {
+        for (var i = 0; i < fix; i++) {
             dir === '-' ? suffix += ' ' : prefix += ' ';
         }
         return prefix + arg + suffix;
@@ -102,34 +105,34 @@ exports.pf = exports.printf = function pf(format, args){
 */
 var styles = {
     //styles
-    'bold'      : ['\033[1m',  '\033[22m'],
-    'italic'    : ['\033[3m',  '\033[23m'],
-    'underline' : ['\033[4m',  '\033[24m'],
-    'inverse'   : ['\033[7m',  '\033[27m'],
+    'bold': ['\033[1m', '\033[22m'],
+    'italic': ['\033[3m', '\033[23m'],
+    'underline': ['\033[4m', '\033[24m'],
+    'inverse': ['\033[7m', '\033[27m'],
     //grayscale
-    'white'     : ['\033[37m', '\033[39m'],
-    'grey'      : ['\033[90m', '\033[39m'],
-    'black'     : ['\033[30m', '\033[39m'],
+    'white': ['\033[37m', '\033[39m'],
+    'grey': ['\033[90m', '\033[39m'],
+    'black': ['\033[30m', '\033[39m'],
     //colors
-    'blue'      : ['\033[34m', '\033[39m'],
-    'cyan'      : ['\033[36m', '\033[39m'],
-    'green'     : ['\033[32m', '\033[39m'],
-    'magenta'   : ['\033[35m', '\033[39m'],
-    'red'       : ['\033[31m', '\033[39m'],
-    'yellow'    : ['\033[33m', '\033[39m']
+    'blue': ['\033[34m', '\033[39m'],
+    'cyan': ['\033[36m', '\033[39m'],
+    'green': ['\033[32m', '\033[39m'],
+    'magenta': ['\033[35m', '\033[39m'],
+    'red': ['\033[31m', '\033[39m'],
+    'yellow': ['\033[33m', '\033[39m']
 };
-for( var style in styles) {
-    (function(style){
-        String.prototype.__defineGetter__(style, function(){
+for (var style in styles) {
+    (function(style) {
+        String.prototype.__defineGetter__(style, function() {
             return styles[style][0] + this + styles[style][1];
         });
-        exports[style] = function(str){
+        exports[style] = function(str) {
             console.log(styles[style][0] + str + styles[style][1]);
             return exports;
         }
     })(style)
 }
-exports.color = function(style, str){
+exports.color = function(style, str) {
     console.log(styles[style][0] + str + styles[style][1]);
 };
 
@@ -137,17 +140,17 @@ exports.color = function(style, str){
     date
 */
 exports.patterns = {
-    ISO8601Long:"yyyy-MM-dd HH:mm:ss",
-    ISO8601Short:"y-m-d"
+    ISO8601Long: "yyyy-MM-dd HH:mm:ss",
+    ISO8601Short: "y-m-d"
 };
 exports.rpatterns = {
-    ISO8601Long : function(sdate){
-        var m = /(\d+)-(\d+)-(\d+) (\d+):(\d+):(\d+)/.exec( sdate );
+    ISO8601Long: function(sdate) {
+        var m = /(\d+)-(\d+)-(\d+) (\d+):(\d+):(\d+)/.exec(sdate);
         // var d = new Date(year, month, day, hours, minutes, seconds, milliseconds);
         return new Date(m[1], m[2], m[3], m[4], m[5], m[6]);
     },
-    ISO8601Short: function(sdate){
-        var m = /(\d+)-(\d+)-(\d+)/.exec( sdate );
+    ISO8601Short: function(sdate) {
+        var m = /(\d+)-(\d+)-(\d+)/.exec(sdate);
         return new Date(m[1], m[2], m[3]);
     }
 }
@@ -179,55 +182,84 @@ exports.rpatterns = {
 
 */
 var patternLetters = {
-    yyyy:   'getFullYear',
-    yy:     function(date){ return ('' + date.getFullYear()).slice(2); },
-    y:      'yy',
+    yyyy: 'getFullYear',
+    yy: function(date) {
+        return ('' + date.getFullYear()).slice(2);
+    },
+    y: 'yy',
 
-    MM:     function(date){ var m = date.getMonth() + 1; return m < 10 ? '0' + m : m; },
-    M:      function(date){ return date.getMonth() + 1; },
+    MM: function(date) {
+        var m = date.getMonth() + 1;
+        return m < 10 ? '0' + m : m;
+    },
+    M: function(date) {
+        return date.getMonth() + 1;
+    },
 
-    dd:     function(date){ var d = date.getDate(); return d < 10 ? '0' + d : d; },
-    d:      'getDate',
+    dd: function(date) {
+        var d = date.getDate();
+        return d < 10 ? '0' + d : d;
+    },
+    d: 'getDate',
 
-    HH:     function(date){ var h = date.getHours(); return h < 10 ? '0' + h : h; },
-    H:     'getHours',
-    hh:     function(date){ var h = date.getHours() % 12; return h < 10 ? '0' + h : h; },
-    h:      function(date){ return date.getHours() % 12; },
+    HH: function(date) {
+        var h = date.getHours();
+        return h < 10 ? '0' + h : h;
+    },
+    H: 'getHours',
+    hh: function(date) {
+        var h = date.getHours() % 12;
+        return h < 10 ? '0' + h : h;
+    },
+    h: function(date) {
+        return date.getHours() % 12;
+    },
 
-    mm:     function(date){ var m = date.getMinutes(); return m < 10 ? '0' + m : m; },
-    m:      'getMinutes',
+    mm: function(date) {
+        var m = date.getMinutes();
+        return m < 10 ? '0' + m : m;
+    },
+    m: 'getMinutes',
 
-    ss:     function(date){ var s = date.getSeconds(); return s < 10 ? '0' + s : s; },
-    s:      'getSeconds',
+    ss: function(date) {
+        var s = date.getSeconds();
+        return s < 10 ? '0' + s : s;
+    },
+    s: 'getSeconds',
 
-    SS:     function(date){ var ms = date.getMilliseconds(); return ms < 10 && '00' + ms || ms < 100 && '0' + ms || ms },
-    S:      'getMilliseconds',
+    SS: function(date) {
+        var ms = date.getMilliseconds();
+        return ms < 10 && '00' + ms || ms < 100 && '0' + ms || ms
+    },
+    S: 'getMilliseconds',
 
-    A:      function(date){ return date.getHours() < 12 ? 'AM' : 'PM' },
-    a:      function(date){ return date.getHours() < 12 ? 'am' : 'pm' }
+    A: function(date) {
+        return date.getHours() < 12 ? 'AM' : 'PM'
+    },
+    a: function(date) {
+        return date.getHours() < 12 ? 'am' : 'pm'
+    }
 }
-var rformat = new RegExp( (function(){
+var rformat = new RegExp((function() {
     var re = [];
-    for( var i in patternLetters) re.push(i);
+    for (var i in patternLetters) re.push(i);
     return '(' + re.join('|') + ')';
 })(), 'g');
 
 // 格式化日期
-exports.format = function(date, format){
-    format = format.replace(rformat, function($0, flag){
-        return typeof patternLetters[flag] === 'function' ? patternLetters[flag](date)
-            : patternLetters[flag] in patternLetters ? arguments.callee( $0, patternLetters[flag] )
-            : date[ patternLetters[flag] ]()
+exports.format = function(date, format) {
+    format = format.replace(rformat, function($0, flag) {
+        return typeof patternLetters[flag] === 'function' ? patternLetters[flag](date) : patternLetters[flag] in patternLetters ? arguments.callee($0, patternLetters[flag]) : date[patternLetters[flag]]()
     });
     // console.log(format);
     return format;
 };
 // 解析日期
-exports.parse = function(sdate, format){
+exports.parse = function(sdate, format) {
     return exports.rpatterns[format](sdate);
 };
 
-exports._parse = function(sdate, format){
+exports._parse = function(sdate, format) {
     /*
         1. 替换标记为正则分组，记录标记和分组的映射关系
         2. 生成解析正则，解析日期字符串
@@ -241,15 +273,15 @@ exports._parse = function(sdate, format){
 /*
     table
 */
-exports.pt = exports.printTable = function(rs){
-    if(!rs || !rs.length) return;
+exports.pt = exports.printTable = function(rs) {
+    if (!rs || !rs.length) return;
     var style = genStyle(rs);
     var devider = genDevider(style);
     var th = genTh(style);
     var trs = genTr(rs, style);
 
     // console.log(style);
-    
+
     console.log(devider);
     console.log(th);
     console.log(devider);
@@ -261,16 +293,23 @@ exports.pt = exports.printTable = function(rs){
 }
 
 function getLen(o) {
-    return ('' + o).length;
+    var rcjk = /[\u2E80-\u2EFF\u2F00-\u2FDF\u3000-\u303F\u31C0-\u31EF\u3200-\u32FF\u3300-\u33FF\u3400-\u4DBF\u4DC0-\u4DFF\u4E00-\u9FBF\uF900-\uFAFF\uFE30-\uFE4F\uFF00-\uFFEF]+/g;
+    o = '' + o;
+    var re = 0;
+    for (var i = 0; i < o.length; i++) {
+        if (o[i].match(rcjk)) re += 2;
+        else re += 1;
+    }
+    return re;
 }
 
 function genStyle(rs) {
     var style = {};
     // init
-    for(var r in rs){
+    for (var r in rs) {
         for (var key in rs[r]) {
             style[key] = key.length;
-        }    
+        }
     }
     // calculate max width of a colume
     var width = 0;
@@ -320,7 +359,7 @@ function genTr(rs, style) {
             }
             tr += '|';
         }
-        trs.push( tr );
+        trs.push(tr);
     }
     return trs;
 }
