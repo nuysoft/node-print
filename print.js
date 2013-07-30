@@ -338,7 +338,7 @@ function genTh(style) {
     for (var key in style) {
         header += ' ';
         header += key;
-        for (var i = 0; i < style[key] + 2 - 1 - key.length; i++) {
+        for (var i = 0; i < style[key] + 2 - 1 - getLen(key); i++) {
             header += ' ';
         }
         header += '|';

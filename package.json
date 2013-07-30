@@ -2,7 +2,7 @@
     "name": "node-print",
     "title": "Print",
     "description": "Print Tool",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "homepage": "https://github.com/nuysoft/node-print",
     "keywords": ["print", "printf", "color", "date", "table"],
     "author": "nuysoft@gmail.com",
