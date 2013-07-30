@@ -308,7 +308,7 @@ function genStyle(rs) {
     // init
     for (var r in rs) {
         for (var key in rs[r]) {
-            style[key] = key.length;
+            style[key] = getLen(key);
         }
     }
     // calculate max width of a colume
